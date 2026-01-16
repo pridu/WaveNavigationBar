@@ -1,0 +1,92 @@
+# WaveNavigationBar
+
+A custom Bottom Navigation Bar library designed for Jetpack Compose.
+
+<p>
+<img src="https://github.com/pridu/WaveNavigationBar/blob/master/image/Screen_recording.gif" width="300" alt="WaveNavigationBar Demo">
+</p>
+
+## Installation
+
+Add the following dependency to your `build.gradle.kts` file:
+
+```kotlin
+dependencies {
+    implementation("io.github.pridu:wave-navigation-bar:1.0.0")
+}
+```
+
+## Usage
+
+You can easily implement a navigation bar using `WaveNavigationBar` and `WaveNavigationBarItem`.
+
+### 1. Basic Configuration
+```kotlin
+WaveNavigationBar(
+    selectedItemIndex = selectedDestination,  // Selected item index (starting from 0)
+    totalItems = Destination.entries.size,    // Total number of items
+    waveHeight = 24.dp,                       // Height of the rising wave effect
+    animationSpec = spring()                  // AnimationSpec<Float> (Optional)
+)
+```
+
+```kotlin
+WaveNavigationBarItem(
+    selected = selectedDestination == index,  // Whether the item is selected
+    iconScaleMultiple = 1.8f,                 // Icon scale multiplier (Optional)
+    animationSpec = spring()                  // AnimationSpec<Float> (Optional)
+)
+```
+
+### 2. Scaffold Padding Handling (Important)
+
+Since the wave effect rises above the navigation bar's bounds, it is highly recommended to use the library's `GetPaddingValues` function when handling the `innerPadding` from a `Scaffold`.
+
+```kotlin
+Scaffold(
+) { contentPadding ->
+    // Use GetPaddingValues to ensure the wave effect doesn't overlap with content
+    AppNavHost(
+        paddingValues = GetPaddingValues(contentPadding), 
+    )
+}
+```
+
+```kotlin
+NavHost(
+) {
+    Destination.entries.forEach { destination ->
+        composable(destination.route) {
+            when (destination) {
+                Destination.HOME -> HomeScreen(paddingValues = paddingValues)
+            }
+        }
+    }
+}
+```
+```kotlin
+@Composable
+fun HomeScreen(
+    paddingValues: PaddingValues
+) {
+    Text(
+        modifier = Modifier.padding(paddingValues = paddingValues)
+    )
+}
+```
+
+## License
+```
+Copyright 2026 sj.kim
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
+file except in compliance with the License. 
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed 
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
+CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+language governing permissions and limitations under the License.
+```
