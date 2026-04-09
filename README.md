@@ -19,6 +19,9 @@ To ensure stability and access to all features (like custom indicator colors), p
 
 Add the following dependency to your `build.gradle.kts` file:
 
+> [!IMPORTANT]
+> Starting from **v1.1.0**, the library is optimized for **Compose BOM 2024.02.00**. Using an older version may result in `NoSuchMethodError`.
+
 ```kotlin
 dependencies {
     implementation("io.github.pridu:wave-navigation-bar:1.1.0")
