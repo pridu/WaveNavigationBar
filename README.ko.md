@@ -30,6 +30,13 @@ WaveNavigationBar(
 ```kotlin
 WaveNavigationBarItem(
     selectedItem = selectedDestination == index, // 선택된 아이템인지 여부,
+    isColors = true, // 아이템의 색 적용 여부, false면 아이템의 selectedColor와 unselectedColor가 무시
+    colors = WaveNavigationBarItemColors(
+        selectedIconColor = MaterialTheme.colorScheme.primary,
+        selectedTextColor = MaterialTheme.colorScheme.primary,
+        unselectedIconColor = MaterialTheme.colorScheme.outline,
+        unselectedTextColor = MaterialTheme.colorScheme.outline
+    )
     iconScaleMultiple = 1.8f, // 아이콘 크기 배수 (선택),
     animationSpec = // AnimationSpec<Float> (선택)
 )
