@@ -20,7 +20,7 @@ build.gradle.kts에 아래 의존성을 추가하세요
 
 ```
 dependencies {
-    implementation("io.github.pridu:wave-navigation-bar:1.0.0")
+    implementation("io.github.pridu:wave-navigation-bar:1.1.0")
 }
 ```
 ## Usage
