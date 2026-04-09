@@ -21,7 +21,7 @@ Add the following dependency to your `build.gradle.kts` file:
 
 ```kotlin
 dependencies {
-    implementation("io.github.pridu:wave-navigation-bar:1.0.0")
+    implementation("io.github.pridu:wave-navigation-bar:1.1.0")
 }
 ```
 
