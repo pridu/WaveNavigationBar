@@ -5,6 +5,15 @@ Jetpack Compose를 위해 설계된 커스텀 Bottom Navigation Bar 라이브러
 <img src="https://github.com/pridu/WaveNavigationBar/blob/master/image/Screen_recording.gif" width="300" alt="WaveNavigationBar Demo">
 </p>
 
+## Compatibility
+
+안정적인 작동을 확인하려면 아래 호환성 표를 참조하기 바랍니다:
+
+| WaveNavigationBar | Recommended Compose BOM | Minimum Android SDK |
+|:---:|:---:|:---:|
+| **v1.1.0** | **2024.02.00 or higher** | API 21+ |
+| v1.0.0 | 2025.12.01 or higher | API 21+ |
+
 ## Installation
 
 build.gradle.kts에 아래 의존성을 추가하세요
