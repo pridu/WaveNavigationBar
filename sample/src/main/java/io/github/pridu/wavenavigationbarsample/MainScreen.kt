@@ -12,6 +12,7 @@ import androidx.compose.material.icons.filled.Shop
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,6 +31,7 @@ import androidx.navigation.compose.rememberNavController
 import io.github.pridu.wavenavigationbar.GetPaddingValues
 import io.github.pridu.wavenavigationbar.WaveNavigationBar
 import io.github.pridu.wavenavigationbar.WaveNavigationBarItem
+import io.github.pridu.wavenavigationbar.WaveNavigationBarItemColors
 import io.github.pridu.wavenavigationbarsample.ui.theme.WaveNavigationBarSampleTheme
 
 enum class Destination(
@@ -128,7 +130,14 @@ fun BottomNavigation(
                         contentDescription = destination.contentDescription
                     )
                 },
-                label = { Text(destination.label) }
+                label = { Text(destination.label) },
+                isColors = true,
+                colors = WaveNavigationBarItemColors(
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    unselectedIconColor = MaterialTheme.colorScheme.outline,
+                    unselectedTextColor = MaterialTheme.colorScheme.outline
+                )
             )
         }
     }

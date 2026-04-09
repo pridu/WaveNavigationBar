@@ -29,6 +29,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -57,6 +58,30 @@ internal const val FineTuning = 20f
 internal var itemWaveHeight: Dp = 24.dp
 internal val previousSelectedItems = mutableListOf<Int>()
 internal var previousSelectedItemIndex by mutableIntStateOf(0)
+
+@Immutable
+data class WaveNavigationBarItemColors(
+    val selectedIconColor: Color,
+    val selectedTextColor: Color,
+    val unselectedIconColor: Color,
+    val unselectedTextColor: Color
+)
+
+object WaveNavigationBarItemDefaults {
+    @Composable
+    fun colors(
+        selectedIconColor: Color = Color.Unspecified,
+        selectedTextColor: Color = Color.Unspecified,
+        unselectedIconColor: Color = Color.Unspecified,
+        unselectedTextColor: Color = Color.Unspecified
+    ): WaveNavigationBarItemColors =
+        WaveNavigationBarItemColors(
+            selectedIconColor = MaterialTheme.colorScheme.primary,
+            selectedTextColor = MaterialTheme.colorScheme.primary,
+            unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+}
 
 class SelectedItemCutoutShape(
     private val selectedItemIndex: Int,
@@ -234,6 +259,65 @@ fun WaveNavigationBar(
             content = content
         )
     }
+}
+
+@Composable
+fun RowScope.WaveNavigationBarItem(
+    onClick: () -> Unit,
+    icon: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    label: @Composable (() -> Unit)? = null,
+    alwaysShowLabel: Boolean = true,
+    isColors: Boolean = true,
+    colors: WaveNavigationBarItemColors = WaveNavigationBarItemDefaults.colors(),
+    selectedItem: Boolean,
+    iconScaleMultiple: Float = 1.8f,
+    animationSpec: AnimationSpec<Float> = spring(
+        dampingRatio = Spring.DampingRatioNoBouncy,
+        stiffness = Spring.StiffnessLow
+    )
+) {
+    val scale by animateFloatAsState(
+        targetValue = if (selectedItem) iconScaleMultiple else 1.0f,
+        animationSpec = animationSpec,
+        label = "iconScaleAnimation"
+    )
+
+    val iconTransformOrigin = remember { TransformOrigin(0.5f, 1.0f) }
+
+    NavigationBarItem(
+        modifier = modifier,
+        icon = {
+            Box(
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .wrapContentHeight()
+                    .graphicsLayer(
+                        scaleX = scale,
+                        scaleY = scale,
+                        transformOrigin = iconTransformOrigin
+                    )
+            ) {
+                icon()
+            }
+        },
+        label = label,
+        selected = if (isColors) selectedItem else false,
+        onClick = onClick,
+        interactionSource = NoRippleInteractionSource,
+        enabled = enabled,
+        alwaysShowLabel = alwaysShowLabel,
+        colors = NavigationBarItemColors(
+            selectedIconColor = colors.selectedIconColor,
+            selectedTextColor = colors.selectedTextColor,
+            selectedIndicatorColor = Color.Unspecified,
+            unselectedIconColor = colors.unselectedIconColor,
+            unselectedTextColor = colors.unselectedTextColor,
+            disabledIconColor = Color.Unspecified,
+            disabledTextColor = Color.Unspecified
+        )
+    )
 }
 
 @Composable
