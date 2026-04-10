@@ -45,7 +45,8 @@ WaveNavigationBar(
 ```kotlin
 WaveNavigationBarItem(
     selected = selectedDestination == index,  // Whether the item is selected
-    isColors = true, // If false, both selected and unselected colors in the 'colors' parameter will be ignored
+    isColors = true, // If false, both selected and unselected colors
+                     // in the 'colors' parameter will be ignored
     colors = WaveNavigationBarItemColors(
         selectedIconColor = MaterialTheme.colorScheme.primary,
         selectedTextColor = MaterialTheme.colorScheme.primary,
