@@ -12,8 +12,8 @@ To ensure stability and access to all features (like custom indicator colors), p
 
 | WaveNavigationBar | Recommended Compose BOM | Minimum Android SDK |
 |:---:|:---:|:---:|
-| **v1.1.0** | **2024.02.00 or higher** | API 21+ |
-| v1.0.0 | 2025.12.01 or higher | API 21+ |
+| **v1.1.0** | **2024.02.00 or higher** | API 24+ |
+| v1.0.0 | 2025.12.01 or higher | API 24+ |
 
 ## Installation
 
