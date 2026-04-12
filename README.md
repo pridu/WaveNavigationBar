@@ -12,8 +12,8 @@ To ensure stability and access to all features (like custom indicator colors), p
 
 | WaveNavigationBar | Recommended Compose BOM | Minimum Android SDK |
 |:---:|:---:|:---:|
-| **v1.1.0** | **2024.02.00 or higher** | API 21+ |
-| v1.0.0 | 2025.12.01 or higher | API 21+ |
+| **v1.1.0** | **2024.02.00 or higher** | API 24+ |
+| v1.0.0 | 2025.12.01 or higher | API 24+ |
 
 ## Installation
 
@@ -45,7 +45,8 @@ WaveNavigationBar(
 ```kotlin
 WaveNavigationBarItem(
     selected = selectedDestination == index,  // Whether the item is selected
-    isColors = true, // If false, both selected and unselected colors in the 'colors' parameter will be ignored
+    isColors = true, // If false, both selected and unselected colors
+                     // in the 'colors' parameter will be ignored
     colors = WaveNavigationBarItemColors(
         selectedIconColor = MaterialTheme.colorScheme.primary,
         selectedTextColor = MaterialTheme.colorScheme.primary,
