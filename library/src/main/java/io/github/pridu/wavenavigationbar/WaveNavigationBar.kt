@@ -320,6 +320,16 @@ fun RowScope.WaveNavigationBarItem(
     )
 }
 
+@Deprecated(
+    message = "Standard NavigationBarItemColors are no longer supported. " +
+            "Use the updated version with WaveNavigationBarItemColors " +
+            "and isColors flag for correct rendering.",
+    replaceWith = ReplaceWith(
+        expression = "WaveNavigationBarItem(onClick, icon, modifier, enabled, label, " +
+                "alwaysShowLabel, true, colors, selectedItem, iconScaleMultiple, animationSpec)"
+    ),
+    level = DeprecationLevel.HIDDEN
+)
 @Composable
 fun RowScope.WaveNavigationBarItem(
     onClick: () -> Unit,
