@@ -1,6 +1,7 @@
 package io.github.pridu.wavenavigationbarsample
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material.icons.Icons
@@ -118,7 +119,9 @@ fun BottomNavigation(
         modifier = modifier.fillMaxWidth(),
         selectedItemIndex = selectedDestination,
         totalItems = Destination.entries.size,
-        waveHeight = 24.dp
+        waveHeight = 24.dp,
+        containerColor = MaterialTheme.colorScheme.primary,
+        windowInsets = WindowInsets(left = 32.dp, right = 32.dp)
     ) {
         Destination.entries.forEachIndexed { index, destination ->
             WaveNavigationBarItem(
@@ -131,12 +134,11 @@ fun BottomNavigation(
                     )
                 },
                 label = { Text(destination.label) },
-                isColors = true,
                 colors = WaveNavigationBarItemColors(
-                    selectedIconColor = MaterialTheme.colorScheme.primary,
-                    selectedTextColor = MaterialTheme.colorScheme.primary,
-                    unselectedIconColor = MaterialTheme.colorScheme.outline,
-                    unselectedTextColor = MaterialTheme.colorScheme.outline
+                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                    selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                    unselectedIconColor = MaterialTheme.colorScheme.inversePrimary,
+                    unselectedTextColor = MaterialTheme.colorScheme.inversePrimary
                 )
             )
         }

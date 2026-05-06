@@ -56,7 +56,7 @@ mavenPublishing {
     coordinates(
         "io.github.pridu",
         "wave-navigation-bar",
-        "1.1.1"
+        "1.2.0"
     )
 
     pom {

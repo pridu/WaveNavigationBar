@@ -3,18 +3,19 @@
 Jetpack Compose를 위해 설계된 커스텀 Bottom Navigation Bar 라이브러리입니다.
 <p>
 <img src="https://github.com/pridu/WaveNavigationBar/blob/master/image/Screen_recording.gif" width="300" alt="WaveNavigationBar Demo">
-<img src="https://github.com/pridu/WaveNavigationBar/blob/master/image/Screen_recording2.gif" width="300" alt="WaveNavigationBar Demo2">
+<img src="https://github.com/pridu/WaveNavigationBar/blob/master/image/Screen_recording_windowInsets.gif" width="300" alt="WaveNavigationBar Demo2">
 </p>
 
 ## Compatibility
 
 안정적인 작동을 확인하려면 아래 호환성 표를 참조하기 바랍니다:
 
-| WaveNavigationBar | Recommended Compose BOM | Minimum Android SDK |
-|:---:|:---:|:---:|
-| **v1.1.1** | **2024.02.00 or higher** | API 21+ |
-| v1.1.0 | 2024.02.00 or higher | API 24+ |
-| v1.0.0 | 2025.12.01 or higher | API 24+ |
+| WaveNavigationBar | Recommended Compose BOM  | Minimum Android SDK |
+|:-----------------:|:------------------------:|:---:|
+|    **v1.2.0**     | **2024.02.00 or higher** | API 21+ |
+|      v1.1.1       |   2024.02.00 or higher   | API 21+ |
+|      v1.1.0       |   2024.02.00 or higher   | API 24+ |
+|      v1.0.0       |   2025.12.01 or higher   | API 24+ |
 
 ## Installation
 
@@ -22,7 +23,7 @@ build.gradle.kts에 아래 의존성을 추가하세요
 
 ```
 dependencies {
-    implementation("io.github.pridu:wave-navigation-bar:1.1.1")
+    implementation("io.github.pridu:wave-navigation-bar:1.2.0")
 }
 ```
 ## Usage
@@ -34,22 +35,24 @@ dependencies {
 WaveNavigationBar(
     selectedItemIndex = selectedDestination, // 선택된 아이템 번호(0부터 시작)
     totalItems = Destination.entries.size, // 전체 아이템 개수
-    waveHeight = 24.dp // 선택된 아이템의 네비게이션 영역이 올라오는 높이
-    animationSpec = // AnimationSpec<Float> (선택)
+    waveHeight = 24.dp, // 선택된 아이템의 네비게이션 영역이 올라오는 높이
+    containerColor = MaterialTheme.colorScheme.primary,
+    animationSpec = spring() // AnimationSpec<Float> (선택)
 )
 ```
 ```kotlin
 WaveNavigationBarItem(
     selectedItem = selectedDestination == index, // 선택된 아이템인지 여부,
-    isColors = true, // 아이템의 색 적용 여부, false면 아이템의 selectedColor와 unselectedColor가 무시
+    isColors = true, // 아이템의 색 적용 여부
+                     // false면 아이템의 selectedColor와 unselectedColor가 무시 (기본: true)
     colors = WaveNavigationBarItemColors(
-        selectedIconColor = MaterialTheme.colorScheme.primary,
-        selectedTextColor = MaterialTheme.colorScheme.primary,
-        unselectedIconColor = MaterialTheme.colorScheme.outline,
-        unselectedTextColor = MaterialTheme.colorScheme.outline
+        selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+        selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+        unselectedIconColor = MaterialTheme.colorScheme.inversePrimary,
+        unselectedTextColor = MaterialTheme.colorScheme.inversePrimary
     )
     iconScaleMultiple = 1.8f, // 아이콘 크기 배수 (선택),
-    animationSpec = // AnimationSpec<Float> (선택)
+    animationSpec = spring() // AnimationSpec<Float> (선택)
 )
 ```
 

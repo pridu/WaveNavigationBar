@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.add
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -45,6 +46,8 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
@@ -86,7 +89,9 @@ object WaveNavigationBarItemDefaults {
 class SelectedItemCutoutShape(
     private val selectedItemIndex: Int,
     private val totalItems: Int,
-    private val waveHeightDp: Dp
+    private val waveHeightDp: Dp,
+    private val leftPadding: Int,
+    private val rightPadding: Int
 ) : Shape {
     override fun createOutline(
         size: Size,
@@ -97,11 +102,11 @@ class SelectedItemCutoutShape(
         val prvPath = Path()
         val combinedPath = Path()
 
-        val itemWidth = size.width / totalItems
+        val itemWidth = (size.width - leftPadding - rightPadding) / totalItems
         val itemTop = with(density) { itemWaveHeight.toPx() }
         val waveHeightPx = with(density) { waveHeightDp.toPx() }
-        val selectedItemCenterX = (selectedItemIndex * itemWidth) + (itemWidth / 2f)
-        val prvSelectedItemCenterX = (previousSelectedItemIndex * itemWidth) + (itemWidth / 2f)
+        val selectedItemCenterX = (selectedItemIndex * itemWidth) + (itemWidth / 2f) + leftPadding
+        val prvSelectedItemCenterX = (previousSelectedItemIndex * itemWidth) + (itemWidth / 2f) + leftPadding
 
         if (previousSelectedItemIndex != selectedItemIndex) {
             prvPath.moveTo(x = prvSelectedItemCenterX - itemTop * 2.3f - FineTuning, y = itemTop)
@@ -223,6 +228,15 @@ fun WaveNavigationBar(
         }
     }
 
+    val leftPadding = windowInsets.getLeft(LocalDensity.current,
+        LocalLayoutDirection.current)
+    val rightPadding = windowInsets.getRight(LocalDensity.current,
+        LocalLayoutDirection.current)
+    val leftDefaultPadding = NavigationBarDefaults.windowInsets
+        .getLeft(LocalDensity.current, LocalLayoutDirection.current)
+    val rightDefaultPadding = NavigationBarDefaults.windowInsets
+        .getRight(LocalDensity.current, LocalLayoutDirection.current)
+
     LaunchedEffect(selectedItemIndex) {
         animatedWaveHeight.animateTo(
             targetValue = waveHeight.value,
@@ -243,14 +257,34 @@ fun WaveNavigationBar(
                 shape = SelectedItemCutoutShape(
                     selectedItemIndex = selectedItemIndex,
                     totalItems = totalItems,
-                    waveHeightDp = animatedWaveHeight.value.dp
+                    waveHeightDp = animatedWaveHeight.value.dp,
+                    leftPadding =
+                        if (windowInsets == NavigationBarDefaults.windowInsets)
+                            0
+                        else
+                            leftPadding,
+                    rightPadding =
+                        if (windowInsets == NavigationBarDefaults.windowInsets)
+                            0
+                        else
+                            rightPadding
                 )
             )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .windowInsetsPadding(windowInsets)
+                .windowInsetsPadding(insets =
+                    if (windowInsets == NavigationBarDefaults.windowInsets)
+                        windowInsets
+                    else
+                        windowInsets.add(
+                            WindowInsets(
+                                left = leftDefaultPadding,
+                                right = rightDefaultPadding
+                            )
+                        )
+                )
                 .padding(top = waveHeight + 4.dp)
                 .defaultMinSize(minHeight = 50.0.dp)
                 .selectableGroup(),
