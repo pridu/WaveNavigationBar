@@ -14,16 +14,14 @@ To ensure stability and access to all features (like custom indicator colors), p
 | WaveNavigationBar | Recommended Compose BOM  | Minimum Android SDK |
 |:-----------------:|:------------------------:|:---:|
 |    **v1.2.0**     | **2024.02.00 or higher** | API 21+ |
-|      v1.1.1       |   2024.02.00 or higher   | API 21+ |
-|      v1.1.0       |   2024.02.00 or higher   | API 24+ |
-|      v1.0.0       |   2025.12.01 or higher   | API 24+ |
+|      v1.1.x       |   2024.02.00 or higher   | API 21+ |
 
 ## Installation
 
 Add the following dependency to your `build.gradle.kts` file:
 
 > [!IMPORTANT]
-> Starting from **v1.1.0**, the library is optimized for **Compose BOM 2024.02.00**. Using an older version may result in `NoSuchMethodError`.
+> This library is optimized for Compose BOM 2024.02.00 or higher. Using an older BOM version may result in `NoSuchMethodError`.
 
 ```kotlin
 dependencies {
@@ -49,8 +47,7 @@ WaveNavigationBar(
 ```kotlin
 WaveNavigationBarItem(
     selected = selectedDestination == index, // Whether the item is selected
-    isColors = true, // If false, both selected and unselected colors
-                     // in the 'colors' parameter will be ignored. (Default: true)
+    isColors = true, // If false, internal color logic is disabled (Default: true)
     colors = WaveNavigationBarItemColors(
         selectedIconColor = MaterialTheme.colorScheme.onPrimary,
         selectedTextColor = MaterialTheme.colorScheme.onPrimary,

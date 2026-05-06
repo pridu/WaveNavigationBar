@@ -13,9 +13,7 @@ Jetpack Compose를 위해 설계된 커스텀 Bottom Navigation Bar 라이브러
 | WaveNavigationBar | Recommended Compose BOM  | Minimum Android SDK |
 |:-----------------:|:------------------------:|:---:|
 |    **v1.2.0**     | **2024.02.00 or higher** | API 21+ |
-|      v1.1.1       |   2024.02.00 or higher   | API 21+ |
-|      v1.1.0       |   2024.02.00 or higher   | API 24+ |
-|      v1.0.0       |   2025.12.01 or higher   | API 24+ |
+|      v1.1.x       |   2024.02.00 or higher   | API 21+ |
 
 ## Installation
 
@@ -50,8 +48,8 @@ WaveNavigationBarItem(
         selectedTextColor = MaterialTheme.colorScheme.onPrimary,
         unselectedIconColor = MaterialTheme.colorScheme.inversePrimary,
         unselectedTextColor = MaterialTheme.colorScheme.inversePrimary
-    )
-    iconScaleMultiple = 1.8f, // 아이콘 크기 배수 (선택),
+    ),
+    iconScaleMultiple = 1.8f, // 아이콘 크기 배수 (선택)
     animationSpec = spring() // AnimationSpec<Float> (선택)
 )
 ```
