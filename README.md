@@ -74,12 +74,17 @@ Scaffold(
 ```
 
 ```kotlin
-NavHost(
+@Composable
+fun AppNavHost(
+    paddingValues: PaddingValues
 ) {
-    Destination.entries.forEach { destination ->
-        composable(destination.route) {
-            when (destination) {
-                Destination.HOME -> HomeScreen(paddingValues = paddingValues)
+    NavHost(
+    ) {
+        Destination.entries.forEach { destination ->
+            composable(destination.route) {
+                when (destination) {
+                    Destination.HOME -> HomeScreen(paddingValues = paddingValues)
+                }
             }
         }
     }
